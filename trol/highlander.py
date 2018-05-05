@@ -27,7 +27,7 @@ def highlander(*attrs):
                     len(attrs), arglen))
 
             # Build the identifier by adding positional args to a list, then using attrs to disern an order for kwargs
-            identifier = [*args]
+            identifier = list(*args)
             for attr in attrs[len(args):]:
                 identifier.append(kwargs[attr])
             identifier = tuple(identifier)  # FREEZE!

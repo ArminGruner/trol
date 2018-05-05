@@ -1,3 +1,4 @@
+from six import raise_from, add_metaclass
 from functools import wraps
 from trol import Property, Collection, deserializer, serializer
 import weakref
@@ -39,10 +40,11 @@ class ModelType(type):
 
         _all_models[cls.__name__] = cls
 
-        super().__init__(*args, **kwargs)
+        super(type, cls).__init__(*args, **kwargs)
 
 
-class Model(metaclass=ModelType):
+@add_metaclass(ModelType)
+class Model(object):
     """A class to support object oriented Redis communication
 
     Attributes:
@@ -297,4 +299,4 @@ def deserialize_model(byts):
         return inst
 
     except Exception as err:
-        raise ModelDeserializationError(byts) from err
+        raise_from(ModelDeserializationError(byts), err)

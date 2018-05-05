@@ -2,7 +2,7 @@ import pickle
 from trol import RedisKeyError, Serializer, Deserializer
 
 
-class Property:
+class Property(object):
     """A property object which emulates a remote object as local
 
     The expectation is that this Property object is embedded as a class level attribute

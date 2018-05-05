@@ -1,3 +1,4 @@
+import six
 from trol import ModelType, Collection, Property
 
 
@@ -29,10 +30,11 @@ class DatabaseType(type):
                 cls._trol_models[attrname] = attr
                 attr._trol_database = cls
 
-        super().__init__(*args, **kwargs)
+        super(type, cls).__init__(*args, **kwargs)
 
 
-class Database(metaclass=DatabaseType):
+@six.add_metaclass(DatabaseType)
+class Database(object):
     # Wait a minute! This class is empty
     # Ya, but it gives you the nice syntactic sugar of:
     #     class MyDB(Database):
